@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { AsciiOptions } from '../types';
 import { getAsciiChar } from '../utils/asciiConverter';
-import { playStartupSound, playScanSound, startAmbientHum, stopAmbientHum } from '../utils/soundEffects';
+import { playStartupSound, playScanSound } from '../utils/soundEffects';
 import { Camera } from 'lucide-react';
 
 interface AsciiCanvasProps {
@@ -36,8 +36,6 @@ export const AsciiCanvas: React.FC<AsciiCanvasProps> = ({ options }) => {
 
           // Play sci-fi startup sound when camera is ready
           playStartupSound();
-          // Start the continuous background hum
-          startAmbientHum();
         }
       } catch (err) {
         console.error("Error accessing camera:", err);
@@ -51,7 +49,6 @@ export const AsciiCanvas: React.FC<AsciiCanvasProps> = ({ options }) => {
       if (stream) {
         stream.getTracks().forEach(track => track.stop());
       }
-      stopAmbientHum();
     };
   }, []);
 
@@ -262,7 +259,7 @@ export const AsciiCanvas: React.FC<AsciiCanvasProps> = ({ options }) => {
       <canvas ref={canvasRef} className="block w-full h-full" />
 
       {/* Floating Controls Container */}
-      <div className="absolute bottom-32 left-1/2 transform -translate-x-1/2 flex items-center gap-8 z-40">
+      <div className="absolute bottom-[160px] sm:bottom-32 left-1/2 transform -translate-x-1/2 flex items-center gap-8 z-50">
         {/* Screenshot Button */}
         <button
           onClick={handleScreenshotClick}
